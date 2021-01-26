@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useEffect } from 'react/cjs/react.development';
-import { login } from '../contexts/apiCalls';
+import { fetchTodos, login } from '../contexts/apiCalls';
 import Context from '../contexts/Context';
 
 export default function LoginScreen( { navigation }) {

@@ -1,6 +1,18 @@
 
 export const apiBaseUrl =  process.env.API_BASE_URL || 'https://todo-backend-rob.herokuapp.com' 
 
+// perform get calls against the API
+const getFetch = async (apiRoute, options ) => {
+  try {
+    let res = await fetch(apiBaseUrl + apiRoute, options)
+    return res.json()
+  }
+  catch(err) {
+    console.log({ err } )
+  }
+}
+
+// perform post calls against the API
 const postFetch = async (apiRoute, data) => {
   try {
     let res = await fetch(apiBaseUrl + apiRoute, {
@@ -12,16 +24,6 @@ const postFetch = async (apiRoute, data) => {
   }
   catch(err) {
     console.log({ err })
-  }
-}
-
-const getFetch = async (apiRoute, options ) => {
-  try {
-    let res = await get(apiBaseUrl + apiRoute, options)
-    return res.json()
-  }
-  catch(err) {
-    console.log({ err } )
   }
 }
 
@@ -39,6 +41,8 @@ export const signup = async (email, password) => {
 }
 
 export const fetchTodos = async (token) => {
+  // in order to get data from API
+  // => provide the token we received after login in the header
   let todos = await getFetch('/users/me/todos', { headers: { 'Auth': token }} )
   return todos
 }

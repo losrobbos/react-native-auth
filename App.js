@@ -6,6 +6,7 @@ import DataProvider from './contexts/DataProvider';
 import HomeScreen from './screens/Home';
 import LoginScreen from './screens/Login';
 import SignupScreen from './screens/Signup';
+import AuthScreen from './screens/Auth';
 
 const Stack = createStackNavigator()
 
@@ -15,8 +16,9 @@ export default function App() {
     <DataProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Auth" component={AuthScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Home" component={ HomeScreen } />
           </Stack.Navigator>
         </NavigationContainer>
