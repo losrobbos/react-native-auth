@@ -7,6 +7,7 @@ import HomeScreen from './screens/Home';
 import LoginScreen from './screens/Login';
 import SignupScreen from './screens/Signup';
 import AuthScreen from './screens/Auth';
+import ToDoAddScreen from './screens/ToDoAdd';
 
 const Stack = createStackNavigator()
 
@@ -20,6 +21,7 @@ export default function App() {
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Home" component={ HomeScreen } />
+            <Stack.Screen name="ToDoAdd" component={ ToDoAddScreen } />
           </Stack.Navigator>
         </NavigationContainer>
     </DataProvider>

@@ -1,36 +1,27 @@
 import React, { useContext } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { useEffect } from 'react/cjs/react.development';
-import { fetchTodos } from '../contexts/apiCalls';
+import { FlatList, StyleSheet, Text, View, Button } from 'react-native';
 import Context from '../contexts/Context';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 
   const { user, token, todos, setTodos } = useContext(Context)
 
-  useEffect(() => {
-
-    // if user and token are available on load => fetch the todos of the user
-    if(user && token && todos.length == 0) {
-      fetchTodos(token)
-      .then(todosApi => {
-        console.log({ todosApi })
-        setTodos(todosApi)
-      })
-    }
-
-  }, [user, token])
-
   return (
     <View style={ styles.container }>
-      <Text>Hello {user.email}</Text>
-      <Text>Nice to have you logged in</Text>
-      <Text>Your todos:</Text>
-      <FlatList 
-        data={todos} 
-        keyExtractor={(todo) => todo._id}
-        renderItem={({ item } ) => <Text style={styles.item}>{item.title}</Text>}
-      />
+      <View>
+        <Text style={styles.heading}>Hello {user.email}</Text>
+      </View>
+      <View style={styles.todos}>
+        <Text>Your todos:</Text>
+        <FlatList 
+          data={todos} 
+          keyExtractor={(todo) => todo._id}
+          renderItem={({ item } ) => <Text style={styles.item}>{item.title}</Text>}
+        />
+      </View>
+      <View style={styles.actions}>
+        <Button title="Add ToDo" onPress={() => navigation.navigate("ToDoAdd")} />
+      </View>
     </View>
   );
 
@@ -38,8 +29,15 @@ export default function HomeScreen() {
 
 
 const styles = StyleSheet.create({
+  heading: { fontSize: 36, fontWeight: 'bold', marginBottom: 10 },
   container: {
     padding: 5
+  },
+  todos: {
+    margin: 10
+  },
+  actions: {
+    margin: 10
   },
   item: {
     borderWidth: 1,
