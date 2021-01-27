@@ -13,12 +13,13 @@ const getFetch = async (apiRoute, options ) => {
 }
 
 // perform post calls against the API
-const postFetch = async (apiRoute, data) => {
+const postFetch = async (apiRoute, data, additionalHeaders) => {
   try {
     let res = await fetch(apiBaseUrl + apiRoute, {
       method: "POST",
       headers: { 'Content-type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      ...additionalHeaders
     })
     return res.json()    
   }
@@ -45,4 +46,9 @@ export const fetchTodos = async (token) => {
   // => provide the token we received after login in the header
   let todos = await getFetch('/users/me/todos', { headers: { 'Auth': token }} )
   return todos
+}
+
+export const addToDo = async (title, token) => {
+  let todo = await postFetch('/todos', { title }, { 'Auth': token })
+  return todo
 }

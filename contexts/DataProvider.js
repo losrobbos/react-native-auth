@@ -4,11 +4,12 @@ import Context from './Context'
 
 const DataProvider = (props) => {
 
-  const [ user, setUser ] = useState()
-  const [ token, setToken ] = useState("")
-  const [ error, setError ] = useState("")
+  const [ user, setUser ] = useState() // here we store the signed up or logged in user
+  const [ token, setToken ] = useState("") // here we store the token that allows us to do operations on the API
+  const [ error, setError ] = useState("") // used to display errors from the API
   const [ todos, setTodos ] = useState([])
 
+  // data that we wanna share with all screens / components in our App
   let sharedData = {
     user, setUser, token, setToken, todos, setTodos, error, setError
   }

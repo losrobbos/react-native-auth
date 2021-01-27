@@ -10,10 +10,11 @@ export default function HomeScreen() {
 
   useEffect(() => {
 
+    // if user and token are available on load => fetch the todos of the user
     if(user && token && todos.length == 0) {
       fetchTodos(token)
       .then(todosApi => {
-        console.log({todosApi})
+        console.log({ todosApi })
         setTodos(todosApi)
       })
     }
