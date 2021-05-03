@@ -1,58 +1,53 @@
+import config from '../.env'
+import axios from 'axios'
+const apiBaseUrl = config.API_BASE_URL || 'https://todo-backend-rob.herokuapp.com' 
 
-export const apiBaseUrl =  process.env.API_BASE_URL || 'https://todo-backend-rob.herokuapp.com' 
+console.log("API URL:", apiBaseUrl)
 
-// perform a fetch calls against the API and return the data + log network errors
-const doFetch = async (apiRoute, options ) => {
-  try {
-    let res = await fetch(apiBaseUrl + apiRoute, options)
-    return res.json()
-  }
-  catch(err) {
-    console.log({ err } )
-  }
+axios.defaults.baseURL = apiBaseUrl // set base URL for all our API requests
+
+const extractApiError = (axiosErr) => {
+  return axiosErr.response ? axiosErr.response.data : { error: "API not reachable" }
 }
-
 
 // we expect to get data back in this format from API: 
 // { user: <userInfo>, token: <token> }
 // on error: { error: <some error message> }
 export const login = async (email, password) => {
-  let data = await doFetch('/users/login', {
-    method: "POST",
-    headers: { 'Content-type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  })
-  return data
+  try {
+    let res = await axios.post('/users/login', { email, password })
+    return res.data
+  }
+  catch(axiosErr) { extractApiError(axiosErr) }
 }
 
 export const signup = async (email, password) => {
-  let data = await doFetch('/users/login', {
-    method: "POST",
-    headers: { 'Content-type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  })
-  return data
+  try {
+    let res = await axios.post('/users/login', { email, password })
+    return res.data
+  }
+  catch(axiosErr) { extractApiError(axiosErr) }
 }
 
 // in order to ADD a todo, we need to be logged in and have a token
 // we send along the token in the headers
 export const addToDo = async (title, token) => {
 
-  let todo = await doFetch('/todos', {
-    method: "POST",
-    headers: { 
-      'Content-type': 'application/json',
-      'Auth': token
-    },
-    body: JSON.stringify({ title })
-  })
-  return todo
+  try {
+    let res = await axios.post('/todos', { title }, { headers: { 'Auth': token } })
+    return res.data
+  }
+  catch(axiosErr) { extractApiError(axiosErr) }
+    
 }
 
 export const fetchTodos = async (token) => {
   // in order to get data from API
   // => we provide the token we received after login in the header
-  let todos = await doFetch('/users/me/todos', { headers: { 'Auth': token }} )
-  return todos
+  try {
+    let res = await axios.get('/users/me/todos', { headers: { 'Auth': token }} )
+    return res.data
+  }
+  catch(axiosErr) { extractApiError(axiosErr) }
 }
 
