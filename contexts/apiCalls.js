@@ -1,18 +1,21 @@
 import config from '../.env'
 import axios from 'axios'
+import { manifest } from "expo-constants";
+
+// load development URI dynamically
+const apiUriDevelopment = manifest.debuggerHost ? `http://${manifest.debuggerHost.split(':').shift()}:5000` : '';
 
 // IMPORTANT! If you want to connect to an API that is running on your local PC, e.g. on Port 5000,
 // you cannot (!) connect to it using http://localhost:5000. Because the app and the API run on DIFFERENT devices and they cannot reach each other via localhost
 // in order to reach the host PC from the phone, you need the special address "http://10.0.2.2", 
 // e.g. for connecting to an API running on Port 5000 you need to use "http://10.0.2.2:5000" here as API base URL 
-const apiBaseUrl = config.API_BASE_URL || 'https://todo-backend-rob.herokuapp.com' 
+const apiBaseUrl = apiUriDevelopment || config.API_BASE_URL || 'https://todo-backend-rob.herokuapp.com' 
 
 console.log("API URL:", apiBaseUrl)
-
 axios.defaults.baseURL = apiBaseUrl // set base URL for all our API requests
 
 const extractApiError = (axiosErr) => {
-  console.log(axiosErr.response?.data)
+  console.log(axiosErr.response ? axiosErr.response.data : config)
   return axiosErr.response ? axiosErr.response.data : { error: "API not reachable" }
 }
 
@@ -21,6 +24,7 @@ const extractApiError = (axiosErr) => {
 // on error: { error: <some error message> }
 export const login = async (email, password) => {
   try {
+    console.log("Trying to login")
     let res = await axios.post('/users/login', { email, password })
     return res.data
   }
