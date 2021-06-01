@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Context from './Context'
-import { fetchTodos } from './apiCalls';
+import { fetchTodos } from '../helpers/apiCalls';
 
 
 const DataProvider = (props) => {

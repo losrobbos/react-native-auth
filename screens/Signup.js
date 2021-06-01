@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useEffect } from 'react/cjs/react.development';
-import { signup } from '../contexts/apiCalls';
+import { signup } from '../helpers/apiCalls';
 import Context from '../contexts/Context';
 
 export default function SignupScreen( { navigation }) {

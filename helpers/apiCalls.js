@@ -1,9 +1,10 @@
 import config from '../.env'
 import axios from 'axios'
-import { manifest } from "expo-constants";
+import constants from "expo-constants";
+const { manifest } = constants
 
 // load development URI dynamically
-const apiUriDevelopment = manifest.debuggerHost ? `http://${manifest.debuggerHost.split(':').shift()}:5000` : '';
+const apiUriDevelopment = manifest && manifest.debuggerHost ? `http://${manifest.debuggerHost.split(':').shift()}:5000` : '';
 
 // IMPORTANT! If you want to connect to an API that is running on your local PC, e.g. on Port 5000,
 // you cannot (!) connect to it using http://localhost:5000. Because the app and the API run on DIFFERENT devices and they cannot reach each other via localhost
