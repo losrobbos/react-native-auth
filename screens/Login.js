@@ -28,6 +28,7 @@ export default function LoginScreen( { navigation }) {
       console.log("Login worked")
       setToken(data.token)
       setUser(data.user)
+      setError("")
     }
     else {
       console.log("Login failed")
