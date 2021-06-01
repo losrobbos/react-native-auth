@@ -23,7 +23,7 @@ export const login = async (email, password) => {
     let res = await axios.post('/users/login', { email, password })
     return res.data
   }
-  catch(axiosErr) { extractApiError(axiosErr) }
+  catch(axiosErr) { return extractApiError(axiosErr) }
 }
 
 export const signup = async (email, password) => {
@@ -31,7 +31,7 @@ export const signup = async (email, password) => {
     let res = await axios.post('/users', { email, password })
     return res.data
   }
-  catch(axiosErr) { extractApiError(axiosErr) }
+  catch(axiosErr) { return extractApiError(axiosErr) }
 }
 
 // in order to ADD a todo, we need to be logged in and have a token
@@ -42,7 +42,7 @@ export const addToDo = async (title, token) => {
     let res = await axios.post('/todos', { title }, { headers: { 'Auth': token } })
     return res.data
   }
-  catch(axiosErr) { extractApiError(axiosErr) }
+  catch(axiosErr) { return extractApiError(axiosErr) }
     
 }
 
@@ -53,6 +53,6 @@ export const fetchTodos = async (token) => {
     let res = await axios.get('/users/me/todos', { headers: { 'Auth': token }} )
     return res.data
   }
-  catch(axiosErr) { extractApiError(axiosErr) }
+  catch(axiosErr) { return extractApiError(axiosErr) }
 }
 
