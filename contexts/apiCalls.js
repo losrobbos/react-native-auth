@@ -12,6 +12,7 @@ console.log("API URL:", apiBaseUrl)
 axios.defaults.baseURL = apiBaseUrl // set base URL for all our API requests
 
 const extractApiError = (axiosErr) => {
+  console.log(axiosErr.response?.data)
   return axiosErr.response ? axiosErr.response.data : { error: "API not reachable" }
 }
 
