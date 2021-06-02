@@ -10,7 +10,7 @@ const apiUriDevelopment = manifest && manifest.debuggerHost ? `http://${manifest
 // you cannot (!) connect to it using http://localhost:5000. Because the app and the API run on DIFFERENT devices and they cannot reach each other via localhost
 // in order to reach the host PC from the phone, you need the special address "http://10.0.2.2", 
 // e.g. for connecting to an API running on Port 5000 you need to use "http://10.0.2.2:5000" here as API base URL 
-const apiBaseUrl = apiUriDevelopment || config.API_BASE_URL || 'https://todo-backend-rob.herokuapp.com' 
+const apiBaseUrl = config.API_BASE_URL || apiUriDevelopment || 'https://todo-backend-rob.herokuapp.com'
 
 console.log("API URL:", apiBaseUrl)
 axios.defaults.baseURL = apiBaseUrl // set base URL for all our API requests
