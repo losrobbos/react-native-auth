@@ -4,12 +4,12 @@ import Context from '../contexts/Context';
 
 export default function HomeScreen({ navigation }) {
 
-  const { user, token, todos, setTodos } = useContext(Context)
+  const { user, todos, } = useContext(Context)
 
   return (
     <View style={ styles.container }>
       <View>
-        <Text style={styles.heading}>Hello {user.email}</Text>
+        <Text style={styles.heading}>Hey {user.email}</Text>
       </View>
       <View style={styles.todos}>
         <Text>Your todos:</Text>
