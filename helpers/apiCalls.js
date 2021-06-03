@@ -3,13 +3,13 @@ import axios from 'axios'
 import constants from "expo-constants";
 const { manifest } = constants
 
-// load development URI dynamically
+// detect API URI dynamically in the network - by port
 const apiUriDevelopment = manifest && manifest.debuggerHost ? `http://${manifest.debuggerHost.split(':').shift()}:5000` : '';
 
 // IMPORTANT! If you want to connect to an API that is running on your local PC, e.g. on Port 5000,
 // you cannot (!) connect to it using http://localhost:5000. Because the app and the API run on DIFFERENT devices and they cannot reach each other via localhost
-// in order to reach the host PC from the phone, you need the special address "http://10.0.2.2", 
-// e.g. for connecting to an API running on Port 5000 you need to use "http://10.0.2.2:5000" here as API base URL 
+// in order to reach the host PC from the phone, you need the concrete IP address of your laptop decive in your local home network, e.g. "http://192.16.172.17:5000" here as API base URL 
+// but it is way easier to use the automatic discovery method above
 const apiBaseUrl = config.API_BASE_URL || apiUriDevelopment || 'https://todo-backend-rob.herokuapp.com'
 
 console.log("API URL:", apiBaseUrl)
